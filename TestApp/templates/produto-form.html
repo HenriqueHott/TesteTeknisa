@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#alert-failed').fadeOut(4000);
+        } );
+    </script>
+
+    <title>Produto Formulário</title>
+
+</head>
+<body>
+
+    <div class="container" align="center">
+        <div class="col-md-9">
+            <h2>{{ title }}</h2>
+        </div>
+    </div>
+    {% load crispy_forms_tags %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            {% load crispy_forms_tags %}
+
+
+            <div class="col-sm" style="">{{ form.codigo|as_crispy_field }}</div>
+
+            <div class="col-sm" >{{ form.nome|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm" >{{ form.preco|as_crispy_field }}</div>
+            <div class="col-sm" >{{ form.descricao|as_crispy_field }}</div>>
+        </div>
+        <div class="row">
+            <div class="col-sm" >{{ form.tipo|as_crispy_field }}</div>
+        </div>
+        <div class="container" align="center">
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+    </form>
+
+    <div class="container" align="center">
+        <a href = "{% url 'criarMenu' %}">Voltar</a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if "sucesso" not in message.tags %}
+                <div class="alert alert-warning" role="alert" id="alert-failed">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+</body>
+</html>

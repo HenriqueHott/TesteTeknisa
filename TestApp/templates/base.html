@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CRUD Produto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var table = $('#tabela').DataTable({
+            "filter": false,
+            "paging": false,
+            "info": false,
+
+            columnDefs: [ {
+            orderable: false,
+            targets:   [0, 1]
+        } ]
+        });
+
+        $('#alert-failed').fadeOut(4000);
+        $('#alert-success').fadeOut(4000);
+
+    } );
+
+    </script>
+
+    <style type="text/css">
+        .fa_custom {
+            color: #C50808;
+            padding-left: 20px;
+        }
+        .row_button{
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" align="center">
+          <div class="col-md-9">
+            <h2>CRUD Produto</h2>
+             <p><em>Autor: Henrique Hott</em></p>
+          </div>
+    </div>
+    <table class="display" id="tabela" style="width:100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td><a href="{% url 'deletarProduto' produto.codigo%}"><i class="fa fa-times fa_custom"></i></a></td>
+                <td><a href="{% url 'atualizarProduto' produto.codigo %}">Editar</a></td>
+                <td>{{ produto.codigo }}</td>
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.preco }}</td>
+                <td>{{ produto.tipo }}</td>
+                <td>{{ produto.descricao }}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <div class="container row_button" align="center">
+        <div class="col-md-9">
+            <button id="button1id" name="button1id" class="btn btn-success"
+                    onclick="window.location.href = '{% url 'adicionarProduto' %}'">Novo produto</button>
+        </div>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            {% if "sucesso" not in message.tags %}
+                <div class="alert alert-warning" role="alert" id="alert-failed">{{ message }}</div>
+                {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if "sucesso" in message.tags %}
+                <div class="alert alert-success" role="alert" id="alert-success">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+</body>
+
+
+
+
+</html>
