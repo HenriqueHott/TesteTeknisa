@@ -43,7 +43,7 @@ def adicionarProduto(request):
 
         # testar o tipo do produto e valido
         if data['tipo'] not in ('A', 'B', 'S', 'E'):
-            messages.info(request, 'Tipo de pruto Invalido')
+            messages.info(request, 'Tipo de Produto Invalido')
             error = True
 
         if not error:
