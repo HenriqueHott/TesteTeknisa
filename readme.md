@@ -1,5 +1,7 @@
 1. Instale as dependências através do arquivo requirements.txt com o comando `pip install -t requiments.txt`
 
+3. Abra o arquivo settings.py e insira sua token de acesso na variavel de mesmo nome
+
 2. Para iniciar a aplicação no LocalHost utilize o comando `python manage.py runserver`
 
 

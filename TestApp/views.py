@@ -3,11 +3,13 @@ from django.contrib import messages
 from .forms import ProdutoForm
 from .models import Produto
 import requests
+from TeknisaTeste.settings import TOKEN
+
 
 
 def criarMenu(request):
 
-    url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produtos/FSADQ5LBJLYGTSM'
+    url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produtos/' + TOKEN
     headers = {}
     response = requests.request('GET', url, headers=headers, allow_redirects=False)
     produtos = []
@@ -48,7 +50,7 @@ def adicionarProduto(request):
 
         if not error:
             # testar se codigo fornercido e unico produto
-            url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produtos/FSADQ5LBJLYGTSM'
+            url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produtos/' + TOKEN
             headers = {}
             response = requests.request('GET', url, headers=headers, allow_redirects=False)
 
@@ -61,7 +63,7 @@ def adicionarProduto(request):
         if not error:
             # enviar requisicao para adicionar produto
             url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produto/add'
-            payload = "{ \n\t\"token\":   \""+'FSADQ5LBJLYGTSM'+ \
+            payload = "{ \n\t\"token\":   \""+ TOKEN + \
                         "\",\n\t\"codigo\": \""+str(data['codigo'])+ \
                           "\",\n\t\"nome\":   \""+data['nome']+ \
                           "\",\n\t\"preco\":  "+str(data['preco'])+ \
@@ -84,7 +86,7 @@ def adicionarProduto(request):
 
 def atualizarProduto(request, id):
 
-    url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produtos/FSADQ5LBJLYGTSM'
+    url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produtos/' + TOKEN
     headers = {}
     response = requests.request('GET', url, headers=headers, allow_redirects=False)
     produto = None
@@ -117,7 +119,7 @@ def atualizarProduto(request, id):
             # enviar requisicao para atualizar o arquivo
             url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produto/' + str(produto.codigo) + '/update'
 
-            payload = "{\n\t\"token\":   \""+'FSADQ5LBJLYGTSM'+ \
+            payload = "{\n\t\"token\":   \""+ TOKEN + \
                               "\",\n\t\"nome\":   \""+data['nome']+ \
                               "\",\n\t\"preco\":  "+str(data['preco'])+ \
                               ",\n\t\"tipo\": \""+data['tipo']+ \
@@ -139,7 +141,7 @@ def atualizarProduto(request, id):
 
 def deletarProduto(request, id):
 
-    url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produtos/FSADQ5LBJLYGTSM'
+    url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produtos/' + TOKEN
     headers = {}
     response = requests.request('GET', url, headers=headers, allow_redirects=False)
     produto = None
@@ -158,7 +160,7 @@ def deletarProduto(request, id):
 
         # enviar requisicao oara deletar o id (codigo)
         url = 'http://briansilva1.zeedhi.com/workfolder/processoseletivo/sistemaprodutos/produto/' + str(produto.codigo) +'/delete'
-        payload = "{\n\t\"token\": \"FSADQ5LBJLYGTSM\"\n}"
+        payload = "{\n\t\"token\": \"" + TOKEN + "\"\n}"
         headers = {
             'Content-Type': 'application/json'
         }
